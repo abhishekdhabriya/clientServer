@@ -1,13 +1,17 @@
 import gulp from 'gulp';
 import path from 'path';
-
+import rimraf from 'rimraf';
 // var gulp = require('gulp');
 // var path = require('path');
 
 const $ = require('gulp-load-plugins')(); //gulp-load-plugins brings in a function so we need to execute it. it will load all modules which starts with gulp-
 // so we don't need to require them separately
 
-gulp.task('server:build', () => {
+gulp.task('server:clean', (cb) => {
+    rimraf('./build', () => cb());
+})
+
+gulp.task('server:compile', () => {
     return gulp.src('./src/server/**/*.js') // specifying a glob to select all js file from dir and sub dir.
     .pipe($.changed('./build')) // change prevent recompilying a file that isn't changed. 
     .pipe($.sourcemaps.init()) // will initialize source sourcemaps
@@ -17,3 +21,11 @@ gulp.task('server:build', () => {
     // second parameter is an absolute path where we want to write our sourcemaps
     .pipe(gulp.dest('./build')); // dump all the output to build dir.
 });
+
+gulp.task('server:build', 
+    gulp.series(
+        'server:clean',
+        'server:compile'
+    )
+);
+

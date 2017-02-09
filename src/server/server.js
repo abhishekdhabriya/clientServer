@@ -6,4 +6,11 @@ const obj2 = {...obj, blegh: 2};
 console.log(obj2);
 
 
+function fail () {
+    throw new Error('Blegh');
+}
+
+fail();
+
+
 
