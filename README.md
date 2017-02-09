@@ -43,6 +43,11 @@ allows eslint to understand react
 we need to disable the default eslint validation that comes when we install the eslint extension for the editor. 
 we want visual studio to use our eslint file.
 
+to install a branch from github we do 
+npm install --save gulpjs/gulp#4.0
+we should only install cli version globally.. like for gulp-cli
+
+
 
 
 
