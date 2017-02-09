@@ -47,6 +47,11 @@ to install a branch from github we do
 npm install --save gulpjs/gulp#4.0
 we should only install cli version globally.. like for gulp-cli
 
+shift+option+f to format the code in mac for visual studio
+
+With gulp 4 we can add on error function and gulp watch won't die if it encounters syntax errors.
+
+we also want gulp to restart the server when it encounters a new file or when we change our file and we can do that with nodemon and hookup with gulp nodemon
 
 
 
