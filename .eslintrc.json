@@ -11,11 +11,7 @@
     },
     "parser":"babel-eslint",
     "rules": {
-        "indent" : [
-            "error",
-            "tab",
-            {"SwitchCase" : 1}
-        ],
+        "indent": [2, 4, {"indentSwitchCase": true}],
         "semi" : ["error", "always"],
         "no-console": "off",
         "react/jsx-uses-react":"error",

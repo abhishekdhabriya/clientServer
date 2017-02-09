@@ -38,7 +38,12 @@ babel-eslint is like a bridge between eslint and babel and if we use babel-eslin
 
 "react/jsx-uses-react":"error",
 "react/jsx-uses-vars":"error"
-allows eslint to use react
+allows eslint to understand react
+
+we need to disable the default eslint validation that comes when we install the eslint extension for the editor. 
+we want visual studio to use our eslint file.
+
+
 
 
 
