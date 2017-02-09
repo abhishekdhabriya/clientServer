@@ -1,0 +1,15 @@
+{
+  "name": "webpack-boilerplate-1",
+  "version": "1.0.0",
+  "description": "webpack build ",
+  "main": "server.js",
+  "scripts": {
+    "test": "node ./tests.js",
+    "start": "node ./server.js"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "adhabriy",
+  "license": "ISC"
+}
