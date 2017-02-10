@@ -17,7 +17,10 @@
         "react/jsx-uses-react":"error",
         "react/jsx-uses-vars":"error"
     },
-    "globals": {
-        "console": false
+    "globals": { // we define global variables which eslint shouldn't complain if eslint can't find the references.
+        "console": false,
+        "process": false,
+        "IS_PRODUCTION": false,
+        "IS_DEVELOPMENT": false
     }
 }
