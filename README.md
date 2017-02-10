@@ -56,6 +56,12 @@ we also want gulp to restart the server when it encounters a new file or when we
 gulp server:watch, will kick off build:compile task which will run all the source code through babel and dump the files under build folder. 
 then the nodemon will run server.entry.js file which requires server and runs the express server at 3000 port.
 
+webpack is module bundler. 
+node-sass is a sass compiler for sass and written in c, so it's very fast.
 
-
+webpack has plugins and loaders. 
+style-loader is the one which  injects into html page as style tag.
+json loader loads json file as an object.
+url loader to reference external file, it references from file-system and webpack will copy it to destination package.
+url and file loader are for files.
 
