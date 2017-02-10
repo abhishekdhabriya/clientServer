@@ -9,7 +9,7 @@ const $ = require('gulp-load-plugins')(); //gulp-load-plugins brings in a functi
 
 gulp.task('server:clean', (cb) => {
     rimraf('./build', () => cb());
-})
+});
 
 function compile() {
     return gulp.src('./src/server/**/*.js') // specifying a glob to select all js file from dir and sub dir.
@@ -41,7 +41,7 @@ gulp.task('server:watch',
             return $.nodemon({
                 script: './server.entry.js', // script that it runs 
                 watch: 'build' // watch build folder for any changes in file 
-            })
+            });
         }
         )
 

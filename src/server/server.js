@@ -1,16 +1,36 @@
-const blegh = "whoa";
-console.log(`hello ${blegh}`);
+import express from 'express';
+import http from 'http'; // package from nodejs
 
-const obj = { hey: 1 };
-const obj2 = { ...obj, blegh: 2 };
-console.log(obj2);
+import { isDevelopment } from './settings';
 
+// --------------
+// setup 
 
-function fail() {
-    throw new Error('Blegh');
-}
+const app = express();
+const server = http.Server(app);
 
-// fail();
+// ---------------
+// configuration
 
+app.set('view engine', 'pug'); // previously called Jade
+app.set('views', './views');
+app.use(express.static('public')); // tells express to serve out any file that exist in public folder in normal http way.
 
+const useExternalStyle = !isDevelopment;
+const scriptRoot = isDevelopment ? 'http://localhost:8080/build' : '/build'; // webpack development server hosted at 8080 or compiled files in build
+
+app.get('*', (req, res) => { // handler if the file doesn't in public folder then serve it from here
+    res.render('index', {
+        useExternalStyle,
+        scriptRoot
+    });
+});
+
+//------------------
+// Startup 
+
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+});
 

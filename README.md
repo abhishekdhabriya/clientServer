@@ -53,7 +53,8 @@ With gulp 4 we can add on error function and gulp watch won't die if it encounte
 
 we also want gulp to restart the server when it encounters a new file or when we change our file and we can do that with nodemon and hookup with gulp nodemon
 
-
+gulp server:watch, will kick off build:compile task which will run all the source code through babel and dump the files under build folder. 
+then the nodemon will run server.entry.js file which requires server and runs the express server at 3000 port.
 
 
 
