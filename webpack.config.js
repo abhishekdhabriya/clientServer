@@ -17,7 +17,7 @@ function createConfig(isDevelopment) {
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }), // extracting vendor component and creating vendor.js file.
         new webpack.DefinePlugin({ // define plugin allows us to define javascript variables in the resulting bundle as global variables that we can access.
             'process.env': { // we are asking webpack to create a global javascript object 
-                NODE_ENV: `${process.env.NODE_ENV} || 'development'` // a property
+                NODE_ENV: `"${process.env.NODE_ENV} || 'development'"` // a property
             },
             IS_PRODUCTION: !isDevelopment, // by doing this we can now use IS_PRODUCTION in our own code as this will be available as a property of a global object 'process.env'
             IS_DEVELOPMENT: isDevelopment   // can be used in code as process.env.IS_DEVELOPMENT
@@ -62,7 +62,7 @@ function createConfig(isDevelopment) {
     };
 
     const clientEntry = ['./src/client/client.js'];
-    let publicPath = '/build'; // let because we will redefine it in certain conditions
+    let publicPath = '/build'; // this is production, as production is built from build.    
 
     if (!isDevelopment) {
         plugins.push(
@@ -73,7 +73,21 @@ function createConfig(isDevelopment) {
         loaders.css.loader = ExtractTextPlugin.extract('style', 'css');
         loaders.sass.loader = ExtractTextPlugin.extract('style', 'css!sass');
     } else {
-
+        // hot module replacement code
+        plugins.push(new webpack.HotModuleReplacementPlugin()); // this plugin will recognize for which module we have the hot module replacement enabled 
+        clientEntry.unshift('webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server');
+        // 
+        // we need to tell where our webpack dev server is hosted so that it can connect. Easiest way to do this to add this to entry.
+        // unshift will prepend the items to the array. 
+        // first argument points to the node_modules as we don't start with the absolute path. it will include index.js from client folder
+        // we pass in the additional piece of data that tells where our webpack dev server is hosted.
+        // the second argument is additional file, there are two files we can use here, only-dev-server or dev-server, if we 
+        // did the dev-server, it will reload the entire page if we change the file it doesn't understand, so if we reload the backend code,
+        // it will reload the page, only-dev-server file will not refresh the file if it doesn't understand how to do the hot module replacement
+        publicPath = 'http://localhost:8080/build/'; // server is hosted from 3000 but our webpack build needs to know where to find this files, so 
+        // it needs to prepend this. 
+        // styles are automatically get replaced my hot module replacement.
+        //but for javaScript we need to do some extra work as it's opt in feature.
     }
 
     return {
@@ -98,7 +112,6 @@ function createConfig(isDevelopment) {
             loaders: _.values(loaders) // _.values returns as an array
         },
         plugins
-
     };
 }
 

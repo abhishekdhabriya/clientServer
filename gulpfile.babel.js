@@ -52,7 +52,7 @@ gulp.task('server:watch',
     )
 );
 
-//--------------
+//------------------------
 // Client
 
 // consoleStats will control the output of webpack
@@ -98,7 +98,6 @@ function watchClient() {
         hot: true,
         stats: consoleStats
     });
-
     server.listen(8080, ()=> {});
 }
 
