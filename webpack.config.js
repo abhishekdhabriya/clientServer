@@ -64,11 +64,17 @@ function createConfig(isDevelopment) {
     const clientEntry = ['./src/client/client.js'];
     let publicPath = '/build'; // let because we will redefine it in certain conditions
 
-    // if (isDevelopment) {
+    if (!isDevelopment) {
+        plugins.push(
+            new webpack.optimize.DedupePlugin(),
+            new ExtractTextPlugin('[name].css'),
+            new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+        );
+        loaders.css.loader = ExtractTextPlugin.extract('style', 'css');
+        loaders.sass.loader = ExtractTextPlugin.extract('style', 'css!sass');
+    } else {
 
-    // } else {
-
-    // }
+    }
 
     return {
         name: 'client',
@@ -79,7 +85,7 @@ function createConfig(isDevelopment) {
         },
         output: {
             path: path.join(__dirname, 'public', 'build'), // __dirnname is the absolute directory we are in, sub folder build under public
-            filename: '[name].js', // [name] is template name, refers to the name property above
+            filename: '[name].js', // [name] is template name, refers to the key proprety of the entry block. like app and vendor
             publicPath
         },
         resolve: {

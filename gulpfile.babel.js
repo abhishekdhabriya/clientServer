@@ -1,8 +1,12 @@
 import gulp from 'gulp';
 import path from 'path';
 import rimraf from 'rimraf';
-// var gulp = require('gulp');
-// var path = require('path');
+import webpackConfig from './webpack.config';
+import webpack from 'webpack';
+
+//-------------
+// server
+
 
 const $ = require('gulp-load-plugins')(); //gulp-load-plugins brings in a function so we need to execute it. it will load all modules which starts with gulp-
 // so we don't need to require them separately
@@ -37,15 +41,43 @@ gulp.task('server:watch',
                 .watch('./src/server/**/*.js', gulp.series(compile))
                 .on('error', () => { });
         },
-        function nodemon() {
-            return $.nodemon({
-                script: './server.entry.js', // script that it runs 
-                watch: 'build' // watch build folder for any changes in file 
-            });
-        }
+            function nodemon() {
+                return $.nodemon({
+                    script: './server.entry.js', // script that it runs 
+                    watch: 'build' // watch build folder for any changes in file 
+                });
+            }
         )
 
     )
 );
+
+//--------------
+// Client
+
+// consoleStats will control the output of webpack
+const consoleStats = {
+    colors: true,
+    exclude: ['node_modules'],
+    chunks: false,
+    assets: false,
+    timings: true,
+    modules: false,
+    hash: false,
+    version: false
+};
+
+gulp.task('client:build', buildClient);
+
+function buildClient(cb) {
+    webpack(webpackConfig, (err, stats) => {
+        if (err) {
+            cb(err);
+        } else {
+            console.log(stats.toString(consoleStats));
+            cb();
+        }
+    });
+}
 
 

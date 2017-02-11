@@ -65,3 +65,5 @@ json loader loads json file as an object.
 url loader to reference external file, it references from file-system and webpack will copy it to destination package.
 url and file loader are for files.
 
+to set the environment variable to production, do this on terminal export NODE_ENV=production
+
