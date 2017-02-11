@@ -6,6 +6,7 @@ export default class Blegh {
     }
 
     readMe() {
-        console.log(this.readMeProp);
+        console.log(this.readMeProp); 
+        console.log('3214');
     }
 }

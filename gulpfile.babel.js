@@ -3,13 +3,13 @@ import path from 'path';
 import rimraf from 'rimraf';
 import webpackConfig from './webpack.config';
 import webpack from 'webpack';
-
-//-------------
-// server
-
+import WebpackDevServer from 'webpack-dev-server';
 
 const $ = require('gulp-load-plugins')(); //gulp-load-plugins brings in a function so we need to execute it. it will load all modules which starts with gulp-
 // so we don't need to require them separately
+
+//-------------
+// server
 
 gulp.task('server:clean', (cb) => {
     rimraf('./build', () => cb());
@@ -67,7 +67,18 @@ const consoleStats = {
     version: false
 };
 
+gulp.task('client:clean', (cb) => {
+    rimraf('./public/build', () => cb());
+});
+
 gulp.task('client:build', buildClient);
+gulp.task('client:watch', watchClient);
+
+gulp.task('client:dev', gulp.series(
+    'client:clean',
+    'client:build',
+    'client:watch'
+));
 
 function buildClient(cb) {
     webpack(webpackConfig, (err, stats) => {
@@ -79,5 +90,25 @@ function buildClient(cb) {
         }
     });
 }
+
+function watchClient() {
+    const compiler = webpack(webpackConfig);
+    const server = new WebpackDevServer(compiler, {
+        publicPath : '/build/',
+        hot: true,
+        stats: consoleStats
+    });
+
+    server.listen(8080, ()=> {});
+}
+
+//-------------------
+// Dev runs
+
+gulp.task('dev:run', gulp.parallel(
+    'server:watch',
+    'client:watch'));
+
+
 
 
