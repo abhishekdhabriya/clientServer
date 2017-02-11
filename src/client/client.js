@@ -1,12 +1,6 @@
 import "./client.scss";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import AppContainer from './components/app';
 
-export default class Blegh {
-    constructor() {
-        this.readMeProp = true;
-    }
-
-    readMe() {
-        console.log(this.readMeProp); 
-        console.log('3214');
-    }
-}
+ReactDOM.render(<AppContainer />, document.getElementById('mount'));
