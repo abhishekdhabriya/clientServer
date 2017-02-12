@@ -75,7 +75,9 @@ function createConfig(isDevelopment) {
     } else {
         // hot module replacement code
         plugins.push(new webpack.HotModuleReplacementPlugin()); // this plugin will recognize for which module we have the hot module replacement enabled 
-        clientEntry.unshift('webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server');
+        clientEntry.unshift(
+            'react-hot-loader/patch', // It's going to patch the core react library and create the react-hot_loader global variable so that it will be then recognized.
+            'webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server');
         // 
         // we need to tell where our webpack dev server is hosted so that it can connect. Easiest way to do this to add this to entry.
         // unshift will prepend the items to the array. 
