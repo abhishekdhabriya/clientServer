@@ -4,15 +4,26 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Server:Attach",
+            "port": 5858,
+            "address": "localhost",
+            "restart": false,
+            "sourceMaps": true,
+            "localRoot": "${workspaceRoot}",
+            "outDir": "${workspaceRoot}/build" // this tells visual studio where it looks for the "sourceMaps"
 
+        },
         {
             "type": "chrome",
             "request": "attach",
-            "name": "Attach to chrome, with sourcemaps",
+            "name": "Chrome:Attach",
             "port": 9222,
             "sourceMaps": true,
             "webRoot": "${workspaceRoot}",
-            "url": "http://localhost:3000/*"  // This will tell chrome to only debug for this url pattern
+            "url": "http://localhost:3000/*" // This will tell chrome to only debug for this url pattern
         }
     ]
 }

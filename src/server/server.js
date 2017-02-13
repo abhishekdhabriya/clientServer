@@ -20,6 +20,11 @@ const useExternalStyle = !isDevelopment;
 const scriptRoot = isDevelopment ? 'http://localhost:8082/build' : '/build'; // webpack development server hosted at 8080 or compiled files in build
 
 app.get('*', (req, res) => { // handler if the file doesn't in public folder then serve it from here
+    
+    let i = 10;
+    let whoa = i*10;
+    console.log(`whoa is ${whoa}`);
+    
     res.render('index', {
         useExternalStyle,
         scriptRoot

@@ -44,7 +44,9 @@ gulp.task('server:watch',
             function nodemon() {
                 return $.nodemon({
                     script: './server.entry.js', // script that it runs 
-                    watch: 'build' // watch build folder for any changes in file 
+                    watch: 'build', // watch build folder for any changes in file,
+                    ignore: ['**/__tests'],
+                    exec : 'node --debug' 
                 });
             }
         )
