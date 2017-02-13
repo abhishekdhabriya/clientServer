@@ -67,3 +67,7 @@ url and file loader are for files.
 
 to set the environment variable to production, do this on terminal export NODE_ENV=production
 
+In terminal execute adhabriy$ 
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+Press F5 to enable debug mode, make sure that the app is running the chrome browser and the developer tool is closed.
+

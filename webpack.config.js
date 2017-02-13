@@ -8,7 +8,7 @@ const vendor = ['lodash', 'react', 'react-dom'];
 
 function createConfig(isDevelopment) {
 
-    const devtool = isDevelopment ? 'cheap-module-source-map' : null; // tells how sourcemaps are created. // eval doesn't work well with debugging.
+    const devtool = isDevelopment ? 'eval-source-map' : null; // tells how sourcemaps are created. // eval doesn't work well with debugging.
 
     // -------
     // plugins
@@ -77,7 +77,7 @@ function createConfig(isDevelopment) {
         plugins.push(new webpack.HotModuleReplacementPlugin()); // this plugin will recognize for which module we have the hot module replacement enabled 
         clientEntry.unshift(
             'react-hot-loader/patch', // It's going to patch the core react library and create the react-hot_loader global variable so that it will be then recognized.
-            'webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server');
+            'webpack-dev-server/client?http://localhost:8082', 'webpack/hot/only-dev-server');
         // 
         // we need to tell where our webpack dev server is hosted so that it can connect. Easiest way to do this to add this to entry.
         // unshift will prepend the items to the array. 
@@ -86,7 +86,7 @@ function createConfig(isDevelopment) {
         // the second argument is additional file, there are two files we can use here, only-dev-server or dev-server, if we 
         // did the dev-server, it will reload the entire page if we change the file it doesn't understand, so if we reload the backend code,
         // it will reload the page, only-dev-server file will not refresh the file if it doesn't understand how to do the hot module replacement
-        publicPath = 'http://localhost:8080/build/'; // server is hosted from 3000 but our webpack build needs to know where to find this files, so 
+        publicPath = 'http://localhost:8082/build/'; // server is hosted from 3000 but our webpack build needs to know where to find this files, so 
         // it needs to prepend this. 
         // styles are automatically get replaced my hot module replacement.
         //but for javaScript we need to do some extra work as it's opt in feature.

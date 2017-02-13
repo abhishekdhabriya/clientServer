@@ -98,7 +98,7 @@ function watchClient() {
         hot: true,
         stats: consoleStats
     });
-    server.listen(8080, ()=> {});
+    server.listen(8082, ()=> {});
 }
 
 //-------------------
